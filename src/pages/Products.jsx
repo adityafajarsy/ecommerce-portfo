@@ -70,14 +70,6 @@ const Products = () => {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-
-        {products.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-xl text-muted-foreground">
-              No products found in this category.
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
