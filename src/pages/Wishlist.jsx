@@ -1,5 +1,5 @@
-import NoTokenLayout from "@/components/NoTokenLayout";
-import ProductCard from "@/components/ProductCard";
+import { NoTokenLayout } from "@/components/ProtectedRoutes";
+
 
 const Wishlist = () => {
   // if (wishlist.length === 0) {

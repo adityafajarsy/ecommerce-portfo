@@ -1,37 +1,23 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import { ShoppingCart, Heart, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { DataBarang } from "../data";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(
-          `https://fakestoreapi.com/products/${id}`
-        );
-        setProduct(response.data);
-      } catch (error) {
-        console.error("Error fetching product:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
+    const foundProduct = DataBarang.find((item) => item.id === parseInt(id));
+    setProduct(foundProduct);
   }, [id]);
 
-  if (loading) return <p className="text-center py-12">Loading...</p>;
   if (!product) return <p className="text-center py-12">Product not found</p>;
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12 pb-28 sm:pb-12">
       <div className="container mx-auto px-4">
         <Link to="/products">
           <Button variant="ghost" className="mb-8">
@@ -53,9 +39,10 @@ const ProductDetail = () => {
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <Badge className="mb-4 capitalize bg-orange-500">{product.category}</Badge>
+              <Badge className="mb-4 capitalize bg-orange-500">
+                {product.category}
+              </Badge>
               <h1 className="text-4xl font-bold mb-4">{product.title}</h1>
-
               <div className="flex items-center gap-4 mb-6">
                 <p className="text-4xl font-bold text-orange-500">
                   ${product.price.toFixed(2)}
@@ -65,7 +52,7 @@ const ProductDetail = () => {
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`!h-5 !w-5 ${
+                        className={`h-5 w-5 ${
                           i < Math.floor(product.rating.rate)
                             ? "fill-orange-500 text-orange-500"
                             : "text-muted-foreground"
@@ -87,13 +74,17 @@ const ProductDetail = () => {
               </p>
             </div>
 
-            <div className="flex gap-4">
-              <Button size="lg" className="flex-1" variant={'orange'}>
-                <ShoppingCart className="mr-2 h-5 w-5"/>
+            {/* Desktop Buttons - Hidden di mobile */}
+            <div className="hidden sm:flex gap-4">
+              <Button size="lg" className="flex-1" variant={"orange"}>
+                <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </Button>
-              <Button className='relative bg-white text-black hover:text-white  hover:bg-orange-500 transition-colors duration-150 ease-linear border' size="lg">
-                <Heart className="h-5 w-5 fill-current" />
+              <Button
+                className="relative bg-white text-black hover:text-white hover:bg-orange-500 transition-colors duration-150 ease-linear border"
+                size="lg"
+              >
+                <Heart className="h-5 w-5" />
               </Button>
             </div>
 
@@ -128,6 +119,20 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Fixed Bottom Buttons - Hanya muncul di mobile */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 flex gap-3 z-50 sm:hidden">
+        <Button className="flex-1 h-12" variant="orange">
+          <ShoppingCart className="h-5 w-5 mr-2" />
+          Add to Cart
+        </Button>
+        <Button
+          className="bg-white text-black hover:text-white border hover:bg-orange-500 transition-colors duration-150 ease-linear h-12 w-12"
+          size="icon"
+        >
+          <Heart className="h-5 w-5" />
+        </Button>
       </div>
     </div>
   );

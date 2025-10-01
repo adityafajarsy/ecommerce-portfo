@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,7 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import logo from "../assets/hamburger-logo.png";
 import axios from "axios";
-import TokenLayout from "@/components/TokenLayout";
+import { TokenLayout } from "@/components/ProtectedRoutes";
 
 const Login = () => {
   const [username, setUsername] = useState("");

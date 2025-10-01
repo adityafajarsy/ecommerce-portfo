@@ -15,6 +15,7 @@ const ProductCard = ({ product }) => {
             className="h-full w-full object-contain transition-transform group-hover:scale-105"
           />
         </div>
+
         <CardContent className="p-3">
           <h3 className="font-semibold text-lg line-clamp-2 mb-2 group-hover:text-orange-400 transition-colors">
             {product.title}
@@ -26,7 +27,9 @@ const ProductCard = ({ product }) => {
             {product.category}
           </p>
         </CardContent>
-        <CardFooter className="p-4 pt-0 flex gap-2 justify-center items-center">
+
+        {/* Button - Hidden di mobile, show di sm ke atas */}
+        <CardFooter className="p-4 pt-0 gap-2 justify-center items-center hidden sm:flex">
           <Button className="flex-1 h-[35px]" size="sm" variant={"orange"}>
             <ShoppingCart className="h-4 w-4 mr-2" />
             Add to Cart
@@ -35,7 +38,7 @@ const ProductCard = ({ product }) => {
             className="bg-white text-black hover:text-white border hover:bg-orange-500 transition-colors duration-150 ease-linear"
             size="icon"
           >
-            <Heart className={`h-4 w-4'fill-current`} />
+            <Heart className="h-4 w-4" />
           </Button>
         </CardFooter>
       </Card>
