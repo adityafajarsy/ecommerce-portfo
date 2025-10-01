@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom';
-import { ShoppingCart, Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Link } from "react-router-dom";
+import { ShoppingCart, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
 const ProductCard = ({ product }) => {
   return (
     <Link to={`/product/${product.id}`}>
       <Card className="group overflow-hidden transition-all hover:shadow-lg border-border">
         <div className="aspect-square overflow-hidden bg-[#FEF3E7]">
+          <div className="absolute w-[397px] sm:w-[357px] h-[24px] bg-gradient-to-b from-[#faf1e7] to-[#FEF3E7] rounded-t-2xl -mt-6"></div>
           <img
             src={product.image}
             alt={product.title}
@@ -26,16 +27,12 @@ const ProductCard = ({ product }) => {
           </p>
         </CardContent>
         <CardFooter className="p-4 pt-0 flex gap-2 justify-center items-center">
-          <Button 
-            className="flex-1 h-[35px]"
-            size="sm"
-            variant={'orange'}
-          >
+          <Button className="flex-1 h-[35px]" size="sm" variant={"orange"}>
             <ShoppingCart className="h-4 w-4 mr-2" />
             Add to Cart
           </Button>
-          <Button 
-          className='bg-white text-black hover:text-white border hover:bg-orange-500 transition-colors duration-150 ease-linear'
+          <Button
+            className="bg-white text-black hover:text-white border hover:bg-orange-500 transition-colors duration-150 ease-linear"
             size="icon"
           >
             <Heart className={`h-4 w-4'fill-current`} />

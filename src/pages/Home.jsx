@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ProductCard";
 import heroBanner from "../assets/hero-banner.jpg";
-import axios from "axios";
 import { DataBarang } from "@/data";
 
 const Home = () => {
@@ -14,12 +13,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "https://fakestoreapi.com/products?limit=4"
-        );
-        const data = response.data;
-        console.log(data);
-        setFeaturedProducts(data);
+        setFeaturedProducts(DataBarang);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -103,7 +97,7 @@ const Home = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {DataBarang.slice(0, 4).map((product) => (
+            {featuredProducts.slice(0, 4).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

@@ -1,8 +1,7 @@
-
-import ProductCard from '@/components/ProductCard';
+import NoTokenLayout from "@/components/NoTokenLayout";
+import ProductCard from "@/components/ProductCard";
 
 const Wishlist = () => {
-
   // if (wishlist.length === 0) {
   //   return (
   //     <div className="min-h-screen flex items-center justify-center">
@@ -21,22 +20,24 @@ const Wishlist = () => {
   // }
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="container mx-auto px-4">
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">My Wishlist</h1>
-          {/* <p className="text-xl text-muted-foreground">
+    <NoTokenLayout>
+      <div className="min-h-screen py-12">
+        <div className="container mx-auto px-4">
+          <div className="mb-12">
+            <h1 className="text-4xl font-bold mb-4">My Wishlist</h1>
+            {/* <p className="text-xl text-muted-foreground">
             {wishlist.length} {wishlist.length === 1 ? 'item' : 'items'} saved
           </p> */}
-        </div>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {/* {wishlist.map((product) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {/* {wishlist.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))} */}
+          </div>
         </div>
       </div>
-    </div>
+    </NoTokenLayout>
   );
 };
 
