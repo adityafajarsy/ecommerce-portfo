@@ -3,27 +3,42 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [], // isi array produk dalam cart
+    items: [], // {id, title, price, quantity, stock}
   },
   reducers: {
     addToCart: (state, action) => {
       const product = action.payload;
-      const existing = state.items.find((item) => item.id === product.id);
+      const existingItem = state.items.find(item => item.id === product.id);
 
-      if (existing) {
-        existing.quantity += 1;
+      if (existingItem) {
+        // ✅ Cek stok dulu
+        if (existingItem.quantity < existingItem.stock) {
+          existingItem.quantity += 1;
+        } else {
+          alert("Stok habis!");
+        }
       } else {
-        state.items.push({ ...product, quantity: 1 });
+        // ✅ Default stock = 20
+        state.items.push({ ...product, quantity: 1, stock: 20 });
       }
     },
-    removeFromCart: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+
+    decreaseQuantity: (state, action) => {
+      const item = state.items.find(i => i.id === action.payload);
+      if (item && item.quantity > 1) {
+        item.quantity -= 1;
+      }
     },
+
+    removeFromCart: (state, action) => {
+      state.items = state.items.filter(item => item.id !== action.payload);
+    },
+
     clearCart: (state) => {
       state.items = [];
     },
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, decreaseQuantity, removeFromCart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
