@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, Heart, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +8,7 @@ import { DataBarang } from "../data";
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const foundProduct = DataBarang.find((item) => item.id === parseInt(id));
@@ -15,6 +16,14 @@ const ProductDetail = () => {
   }, [id]);
 
   if (!product) return <p className="text-center py-12">Product not found</p>;
+
+  const handleAddToCart = () => {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  };
 
   return (
     <div className="min-h-screen py-12 pb-28 sm:pb-12">
@@ -76,7 +85,12 @@ const ProductDetail = () => {
 
             {/* Desktop Buttons - Hidden di mobile */}
             <div className="hidden sm:flex gap-4">
-              <Button size="lg" className="flex-1" variant={"orange"}>
+              <Button
+                size="lg"
+                className="flex-1"
+                variant={"orange"}
+                onClick={handleAddToCart}
+              >
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </Button>
