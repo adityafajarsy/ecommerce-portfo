@@ -109,7 +109,7 @@ const Login = () => {
                 <TabsContent value="login">
                   <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="login-email">Email</Label>
+                      <Label htmlFor="login-email">Username</Label>
                       <Input
                         id="login-email"
                         type="text"
