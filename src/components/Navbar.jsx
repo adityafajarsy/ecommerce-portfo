@@ -51,7 +51,7 @@ const Navbar = () => {
           </div>
 
           {/* Right Icons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
             {/* Wishlist */}
             <Link to="/wishlist">
               <Button
@@ -61,7 +61,7 @@ const Navbar = () => {
               >
                 <Heart className="!h-5 !w-5" />
                 {wishlistCount > 0 && (
-                  <Badge className="absolute -top-1.5 -right-1.5 h-5 w-5 flex items-center justify-center p-0 text-[10px] font-bold bg-orange-500 text-white shadow-md">
+                  <Badge className="absolute -top-1.5 -right-1.5 h-5 w-5 flex items-center justify-center p-0 text-[10px] font-bold bg-orange-500 text-white shadow-md z-10">
                     {wishlistCount}
                   </Badge>
                 )}
@@ -89,7 +89,7 @@ const Navbar = () => {
               <Link
                 to="/"
                 onClick={handleLogout}
-                className="px-3 sm:px-5 sm:text-base py-2 rounded-lg text-white font-semibold 
+                className="px-2 sm:px-5 text-xs sm:text-base py-2 rounded-lg text-white font-semibold 
              bg-gradient-to-r from-orange-500 via-orange-400 to-yellow-400 
              hover:from-orange-600 hover:via-orange-500 hover:to-yellow-500 
              shadow-md transition-colors ease-linear duration-300 cursor-pointer"
