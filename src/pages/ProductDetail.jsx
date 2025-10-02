@@ -15,7 +15,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
 
   const wishlist = useSelector((state) => state.wishlist.items);
-  const isWishlisted = wishlist.some((item) => item.id === product.id);
+  const isWishlisted = wishlist.some((item) => item.id === product?.id);
 
   useEffect(() => {
     const foundProduct = DataBarang.find((item) => item.id === parseInt(id));
