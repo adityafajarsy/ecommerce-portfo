@@ -51,7 +51,7 @@ const Home = () => {
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
-                <Link to="/products?category=jewelery">
+                <Link to="/products?category=jewelry">
                   <Button size="lg" variant="outline">
                     View Jewelry
                   </Button>
