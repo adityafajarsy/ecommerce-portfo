@@ -58,7 +58,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="group overflow-hidden transition-all hover:shadow-lg border-border bg-[#FEF3E7] border rounded-2xl flex flex-col cursor-pointer">
+    <div className="group overflow-hidden transition-all hover:shadow-lg border-border bg-white border rounded-2xl flex flex-col cursor-pointer">
       <Toaster />
       <Link to={`/product/${product.id}`}>
         <div className="aspect-square overflow-hidden bg-[#FEF3E7] relative">
@@ -81,7 +81,7 @@ const ProductCard = ({ product }) => {
           />
         </div>
 
-        <CardContent className="p-2 sm:p-3 bg-white">
+        <div className="p-2 sm:p-3 bg-white">
           <h3 className="font-semibold text-sm sm:text-lg line-clamp-2 mb-1 sm:mb-2 group-hover:text-orange-400 transition-colors">
             {product.title}
           </h3>
@@ -91,11 +91,11 @@ const ProductCard = ({ product }) => {
           <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1 capitalize">
             {product.category}
           </p>
-        </CardContent>
+        </div>
       </Link>
 
       {/* Button */}
-      <CardFooter className="mt-auto py-12 pt-2 gap-2 justify-center items-center hidden sm:flex bg-white">
+      <CardFooter className="py-6 gap-2 justify-center items-center hidden sm:flex bg-white">
         {/* Out of Stock */}
         {isOutOfStock && (
           <Button
