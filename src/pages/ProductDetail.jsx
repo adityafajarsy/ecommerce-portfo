@@ -137,7 +137,11 @@ const ProductDetail = () => {
 
       {/* Fixed Bottom Buttons - Hanya muncul di mobile */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 flex gap-3 z-50 sm:hidden">
-        <Button className="flex-1 h-12" variant="orange">
+        <Button
+          className="flex-1 h-12 transition-all active:scale-90 duration-100 ease-linear"
+          variant="orange"
+          onClick={handleAddToCart}
+        >
           <ShoppingCart className="h-5 w-5 mr-2" />
           Add to Cart
         </Button>
