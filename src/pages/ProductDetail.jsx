@@ -7,6 +7,7 @@ import { DataBarang } from "../data";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleWishlist } from "@/store/wishlistSlice";
 import { addToCart } from "@/store/cartSlice";
+import { toast, Toaster } from "sonner";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
@@ -15,14 +16,26 @@ const ProductDetail = () => {
   const navigate = useNavigate();
 
   const wishlist = useSelector((state) => state.wishlist.items);
-  const isWishlisted = wishlist.some((item) => item.id === product?.id);
+  const cartItems = useSelector((state) => state.cart.items);
+  const purchasedItems = useSelector((state) => state.cart.purchasedItems);
 
   useEffect(() => {
     const foundProduct = DataBarang.find((item) => item.id === parseInt(id));
     setProduct(foundProduct);
   }, [id]);
 
-  if (!product) return <p className="text-center py-12">Product not found</p>;
+  if (!product) return null;
+
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
+  const isInCart = cartItems.some((item) => item.id === product.id);
+  
+  // ✅ Hitung available stock
+  const totalPurchased = purchasedItems[product.id] || 0;
+  const availableStock = product.stock - totalPurchased;
+  
+  // ✅ Determine stock status
+  const isOutOfStock = availableStock === 0;
+  const isLowStock = availableStock > 0 && availableStock <= 5;
 
   const handleAddToCart = () => {
     const token = localStorage.getItem("access_token");
@@ -30,7 +43,16 @@ const ProductDetail = () => {
       navigate("/login");
       return;
     }
-    dispatch(addToCart(product));
+    
+    if (isOutOfStock) {
+      toast.error("Stok tidak mencukupi!");
+      return;
+    }
+    
+    if (!isInCart) {
+      dispatch(addToCart(product));
+      toast.success(`Success Added ${product.title} to Cart`);
+    }
   };
 
   const handleToggleWishlist = () => {
@@ -44,6 +66,7 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen py-12 pb-28 sm:pb-12">
+      <Toaster/>
       <div className="container mx-auto px-4">
         <Link to="/products">
           <Button variant="ghost" className="mb-8">
@@ -54,11 +77,23 @@ const ProductDetail = () => {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Product Image */}
-          <div className="bg-[#FEF3E7] rounded-2xl p-12 flex items-center justify-center">
+          <div className="bg-[#FEF3E7] rounded-2xl p-12 flex items-center justify-center relative">
+            {/* Badge Stock Status */}
+            {(isLowStock || isOutOfStock) && (
+              <div className={`absolute top-4 right-4 px-4 py-2 rounded-full text-sm font-bold z-10 ${
+                isOutOfStock 
+                  ? 'bg-red-500 text-white' 
+                  : 'bg-yellow-500 text-black'
+              }`}>
+                {isOutOfStock ? 'SOLD OUT' : `${availableStock} LEFT`}
+              </div>
+            )}
             <img
               src={product.image}
               alt={product.title}
-              className="max-h-[500px] object-contain"
+              className={`max-h-[500px] object-contain ${
+                isOutOfStock ? 'opacity-50 grayscale' : ''
+              }`}
             />
           </div>
 
@@ -102,23 +137,64 @@ const ProductDetail = () => {
 
             {/* Desktop Buttons - Hidden di mobile */}
             <div className="hidden sm:flex gap-4">
-              <Button
-                className="flex-1 h-11 transition-all active:scale-90 duration-75 ease-in-out"
-                variant="orange"
-                onClick={handleAddToCart}
-              >
-                <ShoppingCart className="h-5 w-5 mr-2" />
-                Add to Cart
-              </Button>
+              {/* Out of Stock */}
+              {isOutOfStock && (
+                <Button
+                  className="flex-1 h-[40px] bg-red-500 hover:bg-red-600 text-white cursor-not-allowed opacity-70"
+                  size="sm"
+                  disabled
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  Out of Stock
+                </Button>
+              )}
+
+              {/* Added to Cart */}
+              {!isOutOfStock && isInCart && (
+                <Button
+                  className="flex-1 h-[40px] bg-gray-200 hover:bg-gray-300 text-gray-700"
+                  size="sm"
+                  disabled
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2 fill-current" />
+                  Added to Cart
+                </Button>
+              )}
+
+              {/* Low Stock */}
+              {!isOutOfStock && !isInCart && isLowStock && (
+                <Button
+                  className="flex-1 h-[40px] border-2 border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50"
+                  size="sm"
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  Low Stock ({availableStock})
+                </Button>
+              )}
+
+              {/* Normal Add to Cart */}
+              {!isOutOfStock && !isInCart && !isLowStock && (
+                <Button
+                  className="flex-1 h-[40px]"
+                  size="sm"
+                  variant="orange"
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  Add to Cart
+                </Button>
+              )}
+
               <Button
                 onClick={handleToggleWishlist}
-                className={`size-11 border transition-colors duration-150 ease-linear p-5 active:scale-90  ${
+                className={`size-11 border transition-colors duration-150 ease-linear p-5 active:scale-90 ${
                   isWishlisted
                     ? "bg-orange-500 text-white hover:bg-orange-600"
                     : "bg-white text-black hover:text-white hover:bg-orange-200"
                 }`}
               >
-                <Heart className="!h-7 !w-7" />
+                <Heart className={`!h-7 !w-7 ${isWishlisted ? 'fill-current' : ''}`} />
               </Button>
             </div>
 
@@ -157,23 +233,64 @@ const ProductDetail = () => {
 
       {/* Fixed Bottom Buttons - Hanya muncul di mobile */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 flex items-center justify-center gap-3 z-50 sm:hidden">
-        <Button
-          className="flex-1 h-12 transition-all active:scale-90 duration-75 ease-in-out"
-          variant="orange"
-          onClick={handleAddToCart}
-        >
-          <ShoppingCart className="h-5 w-5 mr-2" />
-          Add to Cart
-        </Button>
+        {/* Out of Stock - Mobile */}
+        {isOutOfStock && (
+          <Button
+            className="flex-1 h-[40px] bg-red-500 hover:bg-red-600 text-white cursor-not-allowed opacity-70"
+            size="sm"
+            disabled
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Out of Stock
+          </Button>
+        )}
+
+        {/* Added to Cart - Mobile */}
+        {!isOutOfStock && isInCart && (
+          <Button
+            className="flex-1 h-[40px] bg-gray-200 hover:bg-gray-300 text-gray-700"
+            size="sm"
+            disabled
+          >
+            <ShoppingCart className="h-4 w-4 mr-2 fill-current" />
+            Added to Cart
+          </Button>
+        )}
+
+        {/* Low Stock - Mobile */}
+        {!isOutOfStock && !isInCart && isLowStock && (
+          <Button
+            className="flex-1 h-[40px] border-2 border-yellow-500 bg-white text-yellow-700 hover:bg-yellow-50"
+            size="sm"
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Low Stock ({availableStock})
+          </Button>
+        )}
+
+        {/* Normal Add to Cart - Mobile */}
+        {!isOutOfStock && !isInCart && !isLowStock && (
+          <Button
+            className="flex-1 h-[40px]"
+            size="sm"
+            variant="orange"
+            onClick={handleAddToCart}
+          >
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Add to Cart
+          </Button>
+        )}
+
         <Button
           onClick={handleToggleWishlist}
-          className={`size-12 border transition-colors duration-150 ease-linear p-5 active:scale-90  ${
+          className={`size-12 border transition-colors duration-150 ease-linear p-5 active:scale-90 ${
             isWishlisted
               ? "bg-orange-500 text-white hover:bg-orange-600"
               : "bg-white text-black hover:text-white hover:bg-orange-500"
           }`}
         >
-          <Heart className="!h-7 !w-7" />
+          <Heart className={`!h-7 !w-7 ${isWishlisted ? 'fill-current' : ''}`} />
         </Button>
       </div>
     </div>

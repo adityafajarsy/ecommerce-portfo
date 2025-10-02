@@ -40,6 +40,7 @@ export const DataBarang = [
     category: "clothing",
     image: OrangeHoodie,
     rating: { rate: 4.6, count: 210 },
+    stock: 28,
   },
   {
     id: 2,
@@ -49,6 +50,7 @@ export const DataBarang = [
     category: "footwear",
     image: TurquoiseSandals,
     rating: { rate: 4.3, count: 132 },
+    stock: 22,
   },
   {
     id: 3,
@@ -58,6 +60,7 @@ export const DataBarang = [
     category: "jewelry",
     image: RoseGoldNecklace,
     rating: { rate: 4.8, count: 154 },
+    stock: 17,
   },
   {
     id: 4,
@@ -67,6 +70,7 @@ export const DataBarang = [
     category: "footwear",
     image: OrangeSneakers,
     rating: { rate: 4.5, count: 276 },
+    stock: 31,
   },
   {
     id: 5,
@@ -76,6 +80,7 @@ export const DataBarang = [
     category: "clothing",
     image: CreamLinenShirt,
     rating: { rate: 4.4, count: 167 },
+    stock: 24,
   },
   {
     id: 6,
@@ -85,6 +90,7 @@ export const DataBarang = [
     category: "clothing",
     image: TurquoisePoloShirt,
     rating: { rate: 4.2, count: 120 },
+    stock: 33,
   },
   {
     id: 7,
@@ -94,6 +100,7 @@ export const DataBarang = [
     category: "jewelry",
     image: OrangeAmberEarrings,
     rating: { rate: 4.6, count: 95 },
+    stock: 19,
   },
   {
     id: 8,
@@ -103,6 +110,7 @@ export const DataBarang = [
     category: "clothing",
     image: BeigeSummerShorts,
     rating: { rate: 4.3, count: 140 },
+    stock: 27,
   },
   {
     id: 9,
@@ -112,6 +120,7 @@ export const DataBarang = [
     category: "clothing",
     image: TurquoiseJacket,
     rating: { rate: 4.5, count: 178 },
+    stock: 20,
   },
   {
     id: 10,
@@ -121,6 +130,7 @@ export const DataBarang = [
     category: "accessories",
     image: SunglassesOrangeLens,
     rating: { rate: 4.1, count: 112 },
+    stock: 35,
   },
   {
     id: 11,
@@ -130,6 +140,7 @@ export const DataBarang = [
     category: "accessories",
     image: OrangeWatch,
     rating: { rate: 4.7, count: 89 },
+    stock: 16,
   },
   {
     id: 12,
@@ -139,6 +150,7 @@ export const DataBarang = [
     category: "accessories",
     image: LeatherBeltBrown,
     rating: { rate: 4.4, count: 143 },
+    stock: 29,
   },
   {
     id: 13,
@@ -148,6 +160,7 @@ export const DataBarang = [
     category: "clothing",
     image: OrangeTShirt,
     rating: { rate: 4.2, count: 199 },
+    stock: 34,
   },
   {
     id: 14,
@@ -157,6 +170,7 @@ export const DataBarang = [
     category: "jewelry",
     image: TurquoiseBeadedBracelet,
     rating: { rate: 4.3, count: 77 },
+    stock: 21,
   },
   {
     id: 15,
@@ -166,6 +180,7 @@ export const DataBarang = [
     category: "accessories",
     image: CreamBeigeHatPanama,
     rating: { rate: 4.5, count: 102 },
+    stock: 25,
   },
   {
     id: 16,
@@ -175,6 +190,7 @@ export const DataBarang = [
     category: "accessories",
     image: CreamToteBag,
     rating: { rate: 4.3, count: 87 },
+    stock: 18,
   },
   {
     id: 17,
@@ -184,6 +200,7 @@ export const DataBarang = [
     category: "accessories",
     image: OrangeWalletClutch,
     rating: { rate: 4.0, count: 54 },
+    stock: 30,
   },
   {
     id: 18,
@@ -193,6 +210,7 @@ export const DataBarang = [
     category: "bags",
     image: TurquoiseBackpack,
     rating: { rate: 4.5, count: 142 },
+    stock: 23,
   },
   {
     id: 19,
@@ -202,6 +220,7 @@ export const DataBarang = [
     category: "home decor",
     image: ScentedCandle,
     rating: { rate: 4.7, count: 201 },
+    stock: 32,
   },
   {
     id: 20,
@@ -211,6 +230,7 @@ export const DataBarang = [
     category: "kitchen",
     image: ThermosTurquoise,
     rating: { rate: 4.4, count: 92 },
+    stock: 26,
   },
   {
     id: 21,
@@ -220,6 +240,7 @@ export const DataBarang = [
     category: "stationery",
     image: NotebookOrange,
     rating: { rate: 4.2, count: 63 },
+    stock: 35,
   },
   {
     id: 22,
@@ -229,6 +250,7 @@ export const DataBarang = [
     category: "home decor",
     image: CreamCushion,
     rating: { rate: 4.6, count: 78 },
+    stock: 19,
   },
   {
     id: 23,
@@ -238,6 +260,7 @@ export const DataBarang = [
     category: "accessories",
     image: BeigeStrawHat,
     rating: { rate: 4.3, count: 34 },
+    stock: 15,
   },
   {
     id: 24,
@@ -247,6 +270,7 @@ export const DataBarang = [
     category: "accessories",
     image: SunglassesCase,
     rating: { rate: 4.0, count: 51 },
+    stock: 28,
   },
   {
     id: 25,
@@ -256,6 +280,7 @@ export const DataBarang = [
     category: "sports",
     image: TurquoiseYogaMat,
     rating: { rate: 4.8, count: 109 },
+    stock: 22,
   },
   {
     id: 26,
@@ -265,6 +290,7 @@ export const DataBarang = [
     category: "women's clothing",
     image: VintageBoatNeckSweater,
     rating: { rate: 4.4, count: 88 },
+    stock: 17,
   },
   {
     id: 27,
@@ -274,6 +300,7 @@ export const DataBarang = [
     category: "women's clothing",
     image: CoralCorduroyShorts,
     rating: { rate: 4.1, count: 47 },
+    stock: 31,
   },
   {
     id: 28,
@@ -283,6 +310,7 @@ export const DataBarang = [
     category: "accessories",
     image: BrownLeatherWallet,
     rating: { rate: 4.5, count: 120 },
+    stock: 24,
   },
   {
     id: 29,
@@ -292,6 +320,7 @@ export const DataBarang = [
     category: "kitchen",
     image: TurquoiseCoffeeMug,
     rating: { rate: 4.6, count: 65 },
+    stock: 20,
   },
   {
     id: 30,
@@ -301,5 +330,6 @@ export const DataBarang = [
     category: "women's shoes",
     image: DaisymaeOrangeSandals,
     rating: { rate: 4.7, count: 73 },
+    stock: 27,
   },
 ];
