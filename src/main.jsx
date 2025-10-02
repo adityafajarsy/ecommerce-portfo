@@ -10,9 +10,11 @@ import ProductDetail from "./pages/ProductDetail";
 import Wishlist from "./pages/Wishlist";
 import Home from "./pages/Home";
 
-import 'animate.css';
+import "animate.css";
 import "./index.css";
 import "remixicon/fonts/remixicon.css";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>
 );

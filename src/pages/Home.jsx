@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import ProductCard from "@/components/ProductCard";
+import { Button } from "../components/ui/button";
 import heroBanner from "../assets/hero-banner.jpg";
-import { DataBarang } from "@/data";
+import { DataBarang } from "../data";
+import ProductCard from "@/components/ProductCard";
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);

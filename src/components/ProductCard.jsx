@@ -1,10 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, Heart } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { addToCart } from "../store/cartSlice";
+import { toggleWishlist } from "../store/wishlistSlice";
 
 const ProductCard = ({ product }) => {
-const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // ambil state wishlist buat ngecek apakah produk ini udah di-wishlist
+  const wishlist = useSelector((state) => state.wishlist.items);
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
 
   const handleAddToCart = () => {
     const token = localStorage.getItem("access_token");
@@ -12,6 +20,16 @@ const navigate = useNavigate()
       navigate("/login");
       return;
     }
+    dispatch(addToCart(product));
+  };
+
+  const handleToggleWishlist = () => {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    dispatch(toggleWishlist(product));
   };
 
   return (
@@ -37,6 +55,7 @@ const navigate = useNavigate()
           </p>
         </CardContent>
       </Link>
+
       {/* Button - Hidden di mobile, show di sm ke atas */}
       <CardFooter className="p-4 pt-0 gap-2 justify-center items-center hidden sm:flex">
         <Button
@@ -49,7 +68,12 @@ const navigate = useNavigate()
           Add to Cart
         </Button>
         <Button
-          className="bg-white text-black hover:text-white border hover:bg-orange-500 transition-colors duration-150 ease-linear"
+          onClick={handleToggleWishlist}
+          className={`size-9 border transition-colors duration-150 ease-linear ${
+            isWishlisted
+              ? "bg-red-500 text-white hover:bg-red-600"
+              : "bg-white text-black hover:text-white hover:bg-orange-500"
+          }`}
           size="icon"
         >
           <Heart className="h-4 w-4" />
