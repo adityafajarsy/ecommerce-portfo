@@ -96,7 +96,7 @@ const Home = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.slice(0, 4).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -120,7 +120,7 @@ const Home = () => {
             <h2 className="text-4xl font-bold mb-4">Shop by Category</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link to="/products?category=men's clothing">
+            <Link to="/products?category=clothing">
               <div className="bg-card p-8 rounded-2xl text-center hover:shadow-[var(--shadow-hover)] transition-all group cursor-pointer border border-border">
                 <div className="text-4xl mb-4">👔</div>
                 <h3 className="text-2xl font-bold mb-2 group-hover:text-orange-500 transition-colors">
@@ -138,7 +138,7 @@ const Home = () => {
                 <p className="text-muted-foreground">Fashion for her</p>
               </div>
             </Link>
-            <Link to="/products?category=jewelery">
+            <Link to="/products?category=jewelry">
               <div className="bg-card p-8 rounded-2xl text-center hover:shadow-[var(--shadow-hover)] transition-all group cursor-pointer border border-border">
                 <div className="text-4xl mb-4">💎</div>
                 <h3 className="text-2xl font-bold mb-2 group-hover:text-orange-500 transition-colors">
