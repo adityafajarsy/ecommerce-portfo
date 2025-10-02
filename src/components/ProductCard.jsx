@@ -10,7 +10,6 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // ambil state wishlist buat ngecek apakah produk ini udah di-wishlist
   const wishlist = useSelector((state) => state.wishlist.items);
   const isWishlisted = wishlist.some((item) => item.id === product.id);
 
@@ -30,6 +29,7 @@ const ProductCard = ({ product }) => {
       return;
     }
     dispatch(toggleWishlist(product));
+    
   };
 
   return (
@@ -59,7 +59,7 @@ const ProductCard = ({ product }) => {
       {/* Button - Hidden di mobile, show di sm ke atas */}
       <CardFooter className="p-4 pt-0 gap-2 justify-center items-center hidden sm:flex">
         <Button
-          className="flex-1 h-[35px]"
+          className="flex-1 h-[40px]"
           size="sm"
           variant={"orange"}
           onClick={handleAddToCart}
@@ -69,14 +69,13 @@ const ProductCard = ({ product }) => {
         </Button>
         <Button
           onClick={handleToggleWishlist}
-          className={`size-9 border transition-colors duration-150 ease-linear ${
+          className={`size-10 border transition-all duration-75 ease-in-out p-5 active:scale-75 ${
             isWishlisted
-              ? "bg-red-500 text-white hover:bg-red-600"
+              ? "bg-orange-500 text-white hover:bg-orange-600"
               : "bg-white text-black hover:text-white hover:bg-orange-500"
           }`}
-          size="icon"
         >
-          <Heart className="h-4 w-4" />
+          <Heart className="!h-4 !w-4" />
         </Button>
       </CardFooter>
     </Card>

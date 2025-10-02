@@ -120,7 +120,7 @@ const Login = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="login-password">Password</Label>
+                      <Label htmlFor="login-password">Password <span className="text-muted-foreground">m38rmF$</span></Label>
                       <Input
                         id="login-password"
                         type="password"

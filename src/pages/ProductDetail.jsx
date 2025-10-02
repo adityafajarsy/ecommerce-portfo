@@ -4,11 +4,18 @@ import { ShoppingCart, Heart, Star, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DataBarang } from "../data";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleWishlist } from "@/store/wishlistSlice";
+import { addToCart } from "@/store/cartSlice";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const wishlist = useSelector((state) => state.wishlist.items);
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
 
   useEffect(() => {
     const foundProduct = DataBarang.find((item) => item.id === parseInt(id));
@@ -23,6 +30,16 @@ const ProductDetail = () => {
       navigate("/login");
       return;
     }
+    dispatch(addToCart(product));
+  };
+
+  const handleToggleWishlist = () => {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    dispatch(toggleWishlist(product));
   };
 
   return (
@@ -86,19 +103,22 @@ const ProductDetail = () => {
             {/* Desktop Buttons - Hidden di mobile */}
             <div className="hidden sm:flex gap-4">
               <Button
-                size="lg"
-                className="flex-1"
-                variant={"orange"}
+                className="flex-1 h-11 transition-all active:scale-90 duration-75 ease-in-out"
+                variant="orange"
                 onClick={handleAddToCart}
               >
-                <ShoppingCart className="mr-2 h-5 w-5" />
+                <ShoppingCart className="h-5 w-5 mr-2" />
                 Add to Cart
               </Button>
               <Button
-                className="relative bg-white text-black hover:text-white hover:bg-orange-500 transition-colors duration-150 ease-linear border"
-                size="lg"
+                onClick={handleToggleWishlist}
+                className={`size-11 border transition-colors duration-150 ease-linear p-5 active:scale-90  ${
+                  isWishlisted
+                    ? "bg-orange-500 text-white hover:bg-orange-600"
+                    : "bg-white text-black hover:text-white hover:bg-orange-200"
+                }`}
               >
-                <Heart className="h-5 w-5" />
+                <Heart className="!h-7 !w-7" />
               </Button>
             </div>
 
@@ -136,7 +156,7 @@ const ProductDetail = () => {
       </div>
 
       {/* Fixed Bottom Buttons - Hanya muncul di mobile */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 flex gap-3 z-50 sm:hidden">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 flex items-center justify-center gap-3 z-50 sm:hidden">
         <Button
           className="flex-1 h-12 transition-all active:scale-90 duration-75 ease-in-out"
           variant="orange"
@@ -146,10 +166,14 @@ const ProductDetail = () => {
           Add to Cart
         </Button>
         <Button
-          className="bg-white text-black hover:text-white border hover:bg-orange-500 transition-colors duration-150 ease-linear h-12 w-12"
-          size="icon"
+          onClick={handleToggleWishlist}
+          className={`size-12 border transition-colors duration-150 ease-linear p-5 active:scale-90  ${
+            isWishlisted
+              ? "bg-orange-500 text-white hover:bg-orange-600"
+              : "bg-white text-black hover:text-white hover:bg-orange-500"
+          }`}
         >
-          <Heart className="h-5 w-5" />
+          <Heart className="!h-7 !w-7" />
         </Button>
       </div>
     </div>

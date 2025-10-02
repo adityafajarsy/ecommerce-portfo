@@ -77,15 +77,20 @@ const Cart = () => {
               )}
             </div>
 
-            <div
-              className="absolute -mt-14  ml-[860px]"
-              onClick={() => dispatch(clearCart())}
-            >
-              <button className="flex gap-2 items-center cursor-pointer border border-red-500 p-2 rounded-2xl hover:bg-red-500 hover:text-white transition-colors duration-200 ease-out">
-                <h1 className="font-semibold">Clear All</h1>
-                <Trash2 className="!h-7 !w-7 " />
-              </button>
-            </div>
+            {cartItems.length === 0 ? (
+              ""
+            ) : (
+              <div
+                className="absolute -mt-19 sm:-mt-14 ml-[280px]  sm:ml-[860px]"
+                onClick={() => dispatch(clearCart())}
+              >
+                <button className="flex gap-2 items-center cursor-pointer sm:border border-red-500 p-2 rounded-2xl hover:bg-red-500 hover:text-white transition-colors duration-200 ease-out">
+                  <h1 className="font-semibold sm:flex hidden">Clear All</h1>
+                  <Trash2 className="!h-7 !w-7 " />
+                  <h1 className="font-semibold text-xs sm:hidden">Clear All</h1>
+                </button>
+              </div>
+            )}
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
